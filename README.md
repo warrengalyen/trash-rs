@@ -2,7 +2,7 @@
 
 Trash is a Rust library that provides functionality to move files to the operating system's Recycle Bin.
 
-The library currently supports Windows and Linux. Contribution to MacOS support would be very much apprectiated.
+The library supports Windows, Mac and Linux.
 
 ## Usage
 
