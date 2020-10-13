@@ -1,3 +1,5 @@
+use std::error;
+use std::fmt;
 use std::path::Path;
 
 #[cfg(test)]
@@ -20,18 +22,42 @@ mod platform;
 pub enum Error {
 	Unknown,
 
-	/// Error while canonicalizing path
-	/// `code` contains a raw os error code is accessible.
+	/// Error while canonicalizing path.
+	/// `code` contains a raw os error code if accessible.
 	CanonicalizePath {
 		code: Option<i32>,
 	},
 
-	/// Error while performing the remove operation
-	/// `code` contains a raw os error code is accessible.
+	/// Error while performing the remove operation.
+	/// `code` contains a raw os error code if accessible.
 	Remove {
 		code: Option<i32>,
 	},
 }
+
+impl fmt::Display for Error {
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		match self {
+			Self::Unknown => write!(f, "Unknown error"),
+			Self::CanonicalizePath { code } => {
+				let code_str = match code {
+					Some(i) => format!("Error code was {}", i),
+					None => "No error code was available".into(),
+				};
+				write!(f, "Error while canonicalizing path. {}", code_str)
+			}
+			Self::Remove { code } => {
+				let code_str = match code {
+					Some(i) => format!("Error code was {}", i),
+					None => "No error code was available".into(),
+				};
+				write!(f, "Error while performing the remove operation. {}", code_str)
+			}
+		}
+	}
+}
+
+impl error::Error for Error {}
 
 /// Removes a single file or directory.
 ///
