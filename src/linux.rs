@@ -164,5 +164,5 @@ fn get_desktop_evironment() -> DesktopEnvironment {
 		return DesktopEnvironment::Kde3;
 	}
 
-	return DesktopEnvironment::Other;
+	DesktopEnvironment::Other
 }
