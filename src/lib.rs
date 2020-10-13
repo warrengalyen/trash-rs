@@ -22,13 +22,15 @@ pub enum Error {
     Unknown,
 
     /// Error while canonicalizing path
+    /// `code` contains a raw os error code is accessible.
     CanonicalizePath {
         code: Option<i32>,
     },
 
     /// Error while performing the remove operation
+    /// `code` contains a raw os error code is accessible.
     Remove {
-        code: i32,
+        code: Option<i32>,
     },
 }
 
