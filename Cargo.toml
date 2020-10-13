@@ -2,7 +2,6 @@
 name = "trash"
 version = "0.1.0"
 authors = ["Warren Galyen"]
-license = "MIT"
 license-file = "LICENSE"
 readme = "Readme.md"
 description = "A Rust library for moving files to the Recycle Bin"
