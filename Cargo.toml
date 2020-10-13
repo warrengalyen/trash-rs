@@ -3,6 +3,8 @@ name = "trash"
 version = "0.1.0"
 authors = ["Warren Galyen"]
 edition = "2018"
+license = "MIT"
+license-file = "LICENSE"
 
 [dependencies]
 
