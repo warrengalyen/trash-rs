@@ -7,6 +7,21 @@ use crate::Error;
 
 static DEFAULT_TRASH: &str = "gio";
 
+#[derive(PartialEq)]
+enum DesktopEnvironment {
+	Other,
+	Cinnamon,
+	Gnome,
+	// KDE3, KDE4 and KDE5 are sufficiently different that we count
+	// them as different desktop environments here.
+	Kde3,
+	Kde4,
+	Kde5,
+	Pantheon,
+	Unity,
+	Xfce,
+}
+
 pub fn is_implemented() -> bool {
 	true
 }
@@ -24,7 +39,7 @@ where
 		.collect::<Result<Vec<_>, _>>()
 		.map_err(|e| Error::CanonicalizePath { code: e.raw_os_error() })?;
 
-	let trahs = {
+	let trash = {
 		// Determine desktop environment and set accordingly
 		let desktop_env = get_desktop_evironment();
 		if desktop_env == DesktopEnviroment::Kde4 || desktop_env == DesktopEnviroment::Kde5 {
@@ -67,21 +82,6 @@ where
 
 pub fn remove<T: AsRef<Path>>(path: T) -> Result<(), Error> {
 	remove_all(&[path])
-}
-
-#[derive(PartialEq)]
-enum DesktopEnvironment {
-	Other,
-	Cinnamon,
-	Gnome,
-	// KDE3, KDE4 and KDE5 are sufficiently different that we count
-	// them as different desktop environments here.
-	Kde3,
-	Kde4,
-	Kde5,
-	Pantheon,
-	Unity,
-	Xfce,
 }
 
 fn env_has_var(name: &str) -> bool {
